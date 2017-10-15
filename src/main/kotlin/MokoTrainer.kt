@@ -1,11 +1,17 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MemberVisibilityCanPrivate")
 
 class MokoTrainer @JvmOverloads constructor(
-        val input: String = "",
+        private val input: String = "",
         val output: String = "",
         val parent: MokoTrainer? = null
 ) {
     val root: MokoTrainer by lazy { root() }
+
+    val input1: String by lazy { input.trim() }
+
+    val previous: String by lazy {
+        "${parent?.previous ?: ""}\n\n$input1".trim()
+    }
 
     private val children: HashMap<String, MokoTrainer> = HashMap()
 

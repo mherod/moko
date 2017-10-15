@@ -41,8 +41,8 @@ class MokoTrainerKtTest {
         )
 
         assertEquals(
-                "opened shell",
-                adb.ride("adb -s device123 shell").output
+                "adb devices\n\nadb -s device123 shell",
+                adb.ride("adb -s device123 shell").previous
         )
     }
 }
