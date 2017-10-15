@@ -1,5 +1,7 @@
 @file:Suppress("unused", "MemberVisibilityCanPrivate")
 
+package co.herod.moko
+
 class MokoTrainer @JvmOverloads constructor(
         private val input: String = "",
         val output: String = "",
@@ -25,7 +27,7 @@ class MokoTrainer @JvmOverloads constructor(
     }
 
     fun ride(input: String): MokoTrainer {
-        return children[input] ?: parent?.ride(input)!!
+        return children[input] ?: parent?.ride(input) ?: throw RuntimeException()
     }
 }
 

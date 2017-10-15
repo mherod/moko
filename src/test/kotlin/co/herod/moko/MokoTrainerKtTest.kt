@@ -1,3 +1,5 @@
+package co.herod.moko
+
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -5,8 +7,15 @@ import org.junit.Test
 
 class MokoTrainerKtTest {
 
+    private lateinit var adb: MokoTrainer
+
     @Before
     fun setUp() {
+
+        adb = MokoTrainer()
+                .t("adb devices")
+                .t("adb help")
+                .t("adb version")
     }
 
     @After
@@ -26,23 +35,20 @@ class MokoTrainerKtTest {
     @Test
     fun testTestTest() {
 
-        val adb = MokoTrainer()
-                .train("adb devices", "device123")
-                .train("adb -s device123 shell", "opened shell")
-
         assertEquals(
-                "device123",
+                "List of devices attached\n\n",
                 adb.ride("adb devices").output
         )
 
         assertEquals(
-                "opened shell",
-                adb.ride("adb -s device123 shell").output
+                "adb devices\n\nadb help\n\nadb version",
+                adb.ride("adb version").previous
         )
 
         assertEquals(
-                "adb devices\n\nadb -s device123 shell",
-                adb.ride("adb -s device123 shell").previous
+                "adb devices\n\nadb help",
+                adb.ride("adb help").previous
         )
     }
 }
+
